@@ -1,0 +1,14 @@
+label {
+  /* display: flex;
+  flex-direction: column; */
+}
+
+input:nth-child(1) {
+  width: 210px;
+  display: block;
+}
+
+input:nth-child(2) {
+  width: 710px;
+  display: block;
+}
