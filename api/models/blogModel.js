@@ -23,11 +23,10 @@ const blogSchema = new mongoose.Schema({
     default: false,
   },
   deletedAt: {
-    type: String,
-    required: true,
+    type: Date,
   },
   createdAt: {
-    type: String,
+    type: Date,
     required: true,
   },
   like: {

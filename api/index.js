@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const checkUser = require("./middleware/checkUser");
 const logger = require("morgan");
 const userRoutes = require("./routes/userRoutes");
+const blogRoutes = require("./routes/blogRoutes");
 
 // Application init
 const app = express();
@@ -19,6 +20,7 @@ app.use(logger("tiny"));
 
 // routes
 app.use("/user", userRoutes);
+app.use("/blogs", blogRoutes);
 
 const PORT = 4000;
 
