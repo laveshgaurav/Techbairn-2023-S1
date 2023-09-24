@@ -4,12 +4,14 @@ const checkUser = require("./middleware/checkUser");
 const logger = require("morgan");
 const userRoutes = require("./routes/userRoutes");
 const blogRoutes = require("./routes/blogRoutes");
+const cors = require("cors");
 
 // Application init
 const app = express();
 
 // middleware
 // app.use(checkUser);
+app.use(cors());
 app.use(
   express.urlencoded({
     extended: true,
