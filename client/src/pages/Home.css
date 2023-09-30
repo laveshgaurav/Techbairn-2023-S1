@@ -1,0 +1,33 @@
+.Home_Container {
+  width: 40%;
+  margin: auto;
+}
+
+.Blog_Container {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: 5px 6px 12px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.Img_Container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+img {
+  width: 25%;
+  margin: 0 8px;
+}
+
+p {
+  font-size: 12px;
+}
