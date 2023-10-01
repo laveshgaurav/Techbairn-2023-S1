@@ -14,12 +14,22 @@ function Home() {
   });
   const [activeOption, setActiveOption] = useState("link");
   const [imgUrl, setImgUrl] = useState("");
+  const [alert, setAlert] = useState({
+    msg: "",
+    type: "",
+    open: false,
+  });
 
   const fetchData = async () => {
     try {
       let apiData = await getAllBlogs();
       console.log("API DATA", apiData);
       if (apiData?.status) setBlogData(apiData.blogs);
+      setAlert({
+        msg: "Data refreshed",
+        type: "success",
+        open: true,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -37,6 +47,13 @@ function Home() {
           image: [],
           location: "India",
         });
+      } else {
+        // alert(resp?.error);
+        setAlert({
+          msg: resp?.error,
+          type: "error",
+          open: true,
+        });
       }
     } catch (e) {
       console.log(e);
@@ -47,8 +64,52 @@ function Home() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (alert.open) {
+      setTimeout(() => {
+        setAlert({
+          msg: "",
+          type: "",
+          open: false,
+        });
+      }, 2000);
+    }
+  }, [alert?.open]);
+
+  function getBase64(file) {
+    try {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        console.log(reader.result);
+        setBody({
+          ...body,
+          image: [...body.image, reader.result],
+        });
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+    } catch (e) {}
+  }
+
   return (
     <div className="Home_Container">
+      {alert.open && (
+        <div
+          className="Alert_Container"
+          style={{
+            backgroundColor:
+              alert?.type === ""
+                ? "#e0e0e0"
+                : alert?.type === "error"
+                ? "red"
+                : "green",
+          }}
+        >
+          <p>{alert?.msg}</p>
+        </div>
+      )}
       {/* form component */}
       <div
         style={{
@@ -106,7 +167,7 @@ function Home() {
           </select>
         </label>
 
-        {activeOption === "link" && (
+        {activeOption === "link" ? (
           <div>
             <input
               placeholder="Add image URL"
@@ -127,6 +188,32 @@ function Home() {
             >
               Add
             </button>
+            {body.image.map((item, index) => (
+              <>
+                <img
+                  src={item}
+                  alt="item"
+                  style={{
+                    width: "120px",
+                    marginRight: "1rem",
+                  }}
+                />
+                <button
+                  onClick={() =>
+                    setBody({
+                      ...body,
+                      image: body.image.filter((img, idx) => img !== item),
+                    })
+                  }
+                >
+                  DEL
+                </button>
+              </>
+            ))}
+          </div>
+        ) : (
+          <div>
+            <input type="file" onChange={(e) => getBase64(e.target.files[0])} />
             {body.image.map((item, index) => (
               <>
                 <img

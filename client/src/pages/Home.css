@@ -32,3 +32,12 @@ img {
 p {
   font-size: 12px;
 }
+
+.Alert_Container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 240px;
+  padding: 1rem;
+  background-color: #e0e0e0;
+}
